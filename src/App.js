@@ -29,15 +29,25 @@ import Merson from './Person/Person.js'
 //   }
 //   )
 // }
+// deletehandler=(index)=>{
+//   const arr=[...this.state.Persons];
+//   arr.splice(index,1);
+//   console.log(arr);
+//   console.log(this.state.Persons)
+//   this.setState({
+//   Persons:arr    
+//   })
+// }
 //   render(){
 //     let pearson=null
 // if(this.state.showPerson){
 //   pearson=(<div>
 //     {
-//       this.state.Persons.map(x=>{
+//       this.state.Persons.map((x,index)=>{
 //         return <Merson
 //           name={x.name}
-//           age={x.age} />
+//           age={x.age} 
+//           click={()=>this.deletehandler(index)} />
 //       })
 //     }
 //     </div>);
@@ -75,9 +85,9 @@ cursor:'pointer'
 function App() {
   const [persons,setperson]=useState({
     Persons:[
-      {name:'varun' ,age:26},
-      {name:'varun1' ,age:26},
-      {name:'varun2' ,age:26}
+      {id:'11',name:'varun' ,age:26},
+      {id:'12',name:'varun1' ,age:26},
+      {id:'13',name:'varun2' ,age:26}
     ],
     otherstate:'abcd',
     showPerson:false
@@ -87,9 +97,9 @@ function App() {
         console.log('It was clicked')
         setperson({
           Persons:[
-            {name:newName ,age:26},
-            {name:'Bahman' ,age:26},
-            {name:'varun2' ,age:26}
+            {id:'11',name:newName ,age:26},
+            {id:'12',name:'Bahman' ,age:26},
+            {id:'13',name:'varun2' ,age:26}
           ],
           otherstate:persons.otherstate,
           showPerson:persons.showPerson 
@@ -97,13 +107,18 @@ function App() {
         )
     }
     
-  const changeHandler=(event)=>{
+  const changeHandler=(event,id)=>{
+    const pindex=persons.Persons.findIndex(p=>{
+      return p.id===id
+    })
+    const prsn={...persons.Persons[pindex]}
+    prsn.name=event.target.value
+
+    const arr=[...persons.Persons]
+    arr[pindex]=prsn
+
     setperson({
-      Persons:[
-        {name:event.target.value ,age:26},
-        {name:'Bahman' ,age:26},
-        {name:'varun2' ,age:26}
-      ],
+      Persons:arr,
       otherstate:persons.otherstate,
       showPerson:persons.showPerson
     }
@@ -113,9 +128,9 @@ function App() {
 const toggle=()=>{
   setperson({
     Persons:[
-      {name:'varun bahman' ,age:26},
-      {name:'Bahman' ,age:26},
-      {name:'varun2' ,age:26}
+      {id:'11',name:'varun bahman' ,age:26},
+      {id:'12',name:'Bahman' ,age:26},
+      {id:'13',name:'varun2' ,age:26}
     ],
     otherstate:persons.otherstate,
     showPerson:!persons.showPerson
@@ -123,7 +138,7 @@ const toggle=()=>{
   )
 }
 const deletehandler=(index)=>{
-  const arr=persons.Persons;
+  const arr=[...persons.Persons];
   arr.splice(index,1);
   setperson({
     Persons:arr,
@@ -140,8 +155,9 @@ if(persons.showPerson){
         return <Merson
           name={x.name}
           age={x.age}
+          key={x.id}
           click={()=>deletehandler(index)}
-          change={changeHandler}>
+          change={(event)=>changeHandler(event,x.id)}>
         </Merson>
       })
     }
