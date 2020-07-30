@@ -2,6 +2,7 @@ import React, {Component,useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Merson from './Person/Person.js'
+import person from './Person/Person.js';
 
 // class App extends Component {
 //   state={
@@ -60,7 +61,8 @@ function App() {
       {name:'varun1' ,age:26},
       {name:'varun2' ,age:26}
     ],
-    otherstate:'abcd'
+    otherstate:'abcd',
+    showPerson:false
   });
 
   const myApp=(newName)=>{
@@ -71,7 +73,8 @@ function App() {
             {name:'Bahman' ,age:26},
             {name:'varun2' ,age:26}
           ],
-          otherstate:persons.otherstate 
+          otherstate:persons.otherstate,
+          showPerson:persons.showPerson 
         }
         )
     }
@@ -83,11 +86,24 @@ function App() {
         {name:'Bahman' ,age:26},
         {name:'varun2' ,age:26}
       ],
-      otherstate:persons.otherstate 
+      otherstate:persons.otherstate,
+      showPerson:persons.showPerson
     }
     )
 }
-    console.log(persons)
+
+const toggle=()=>{
+  setperson({
+    Persons:[
+      {name:'varun bahman' ,age:26},
+      {name:'Bahman' ,age:26},
+      {name:'varun2' ,age:26}
+    ],
+    otherstate:persons.otherstate,
+    showPerson:!persons.showPerson
+  }
+  )
+}
   return (
     <div className="App">
       <header className="App-header">
@@ -104,10 +120,15 @@ function App() {
           Learn React
         </a> */}
         {/* <button onClick={myApp.bind(this,'varubah')}>Switch Name</button> */}
-        <button onClick={()=> myApp('varun bahman')} style={style}>Switch Name</button>
+        <button onClick={toggle} style={style}>Toggle Name</button>
+        <button onClick={()=>myApp('varu')} style={style}>Switch Name</button>
+        { persons.showPerson===true ?
+        <div>
         <Merson name={persons.Persons[0].name} age='24'/>
         <Merson name='varun' age='24' click={myApp.bind(myApp,'varun sharma')} change={changeHandler}>My hobbies: Chatiing</Merson>
         <Merson name='varun' age='24'/>
+        </div>:null
+        }
       </header>
     </div>
     // React.createElement('div',{className:'App'},'This is working now')
