@@ -122,14 +122,25 @@ const toggle=()=>{
   }
   )
 }
+const deletehandler=(index)=>{
+  const arr=persons.Persons;
+  arr.splice(index,1);
+  setperson({
+    Persons:arr,
+    otherstate:persons.otherstate,
+    showPerson:persons.showPerson
+  }
+  )
+}
 let pearson=null
 if(persons.showPerson){
   pearson=(<div>
     {
-      persons.Persons.map(x=>{
+      persons.Persons.map((x,index)=>{
         return <Merson
           name={x.name}
           age={x.age}
+          click={()=>deletehandler(index)}
           change={changeHandler}>
         </Merson>
       })
