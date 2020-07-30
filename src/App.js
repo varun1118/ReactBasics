@@ -9,7 +9,9 @@ import Merson from './Person/Person.js'
 //       {name:'varun' ,age:26},
 //       {name:'varun1' ,age:26},
 //       {name:'varun2' ,age:26}
-//     ]
+//     ],
+//     otherstate:'abcd',
+//     showPerson:false
 //   }
 // myApp=()=>{
 //     console.log('It was clicked')
@@ -21,7 +23,25 @@ import Merson from './Person/Person.js'
 //       ] 
 //     })
 // }
+// toggle=()=>{
+//   this.setState({
+//     showPerson:!this.state.showPerson
+//   }
+//   )
+// }
 //   render(){
+//     let pearson=null
+// if(this.state.showPerson){
+//   pearson=(<div>
+//     {
+//       this.state.Persons.map(x=>{
+//         return <Merson
+//           name={x.name}
+//           age={x.age} />
+//       })
+//     }
+//     </div>);
+// }
 //       return (
 //             <div className="App">
 //               <header className="App-header">
@@ -37,15 +57,14 @@ import Merson from './Person/Person.js'
 //                 >
 //                   Learn React
 //                 </a> */}
-//                 <button onClick={this.myApp}>Switch Name</button>
-//                 <Merson name={this.state.Persons[0].name} age={this.state.Persons[0].age}/>
-//                 <Merson name={this.state.Persons[1].name} age={this.state.Persons[1].age}>My hobbies: Chatiing</Merson>
-//                 <Merson name={this.state.Persons[2].name} age={this.state.Persons[2].age}/>
+//                 <button onClick={this.toggle}>Switch Name</button>
+//                 {pearson}
 //               </header>
 //             </div>
 //     )
 //   }
 // }
+
 const style={
 backgroundColor:'white',
 padding:'8px',
@@ -106,9 +125,15 @@ const toggle=()=>{
 let pearson=null
 if(persons.showPerson){
   pearson=(<div>
-    <Merson name={persons.Persons[0].name} age='24'/>
-    <Merson name='varun' age='24' click={myApp.bind(myApp,'varun sharma')} change={changeHandler}>My hobbies: Chatiing</Merson>
-    <Merson name='varun' age='24'/>
+    {
+      persons.Persons.map(x=>{
+        return <Merson
+          name={x.name}
+          age={x.age}
+          change={changeHandler}>
+        </Merson>
+      })
+    }
     </div>);
 }
   return (
