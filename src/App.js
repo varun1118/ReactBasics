@@ -2,7 +2,6 @@ import React, {Component,useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Merson from './Person/Person.js'
-import person from './Person/Person.js';
 
 // class App extends Component {
 //   state={
@@ -104,6 +103,14 @@ const toggle=()=>{
   }
   )
 }
+let pearson=null
+if(persons.showPerson){
+  pearson=(<div>
+    <Merson name={persons.Persons[0].name} age='24'/>
+    <Merson name='varun' age='24' click={myApp.bind(myApp,'varun sharma')} change={changeHandler}>My hobbies: Chatiing</Merson>
+    <Merson name='varun' age='24'/>
+    </div>);
+}
   return (
     <div className="App">
       <header className="App-header">
@@ -122,13 +129,7 @@ const toggle=()=>{
         {/* <button onClick={myApp.bind(this,'varubah')}>Switch Name</button> */}
         <button onClick={toggle} style={style}>Toggle Name</button>
         <button onClick={()=>myApp('varu')} style={style}>Switch Name</button>
-        { persons.showPerson===true ?
-        <div>
-        <Merson name={persons.Persons[0].name} age='24'/>
-        <Merson name='varun' age='24' click={myApp.bind(myApp,'varun sharma')} change={changeHandler}>My hobbies: Chatiing</Merson>
-        <Merson name='varun' age='24'/>
-        </div>:null
-        }
+        {pearson}
       </header>
     </div>
     // React.createElement('div',{className:'App'},'This is working now')
